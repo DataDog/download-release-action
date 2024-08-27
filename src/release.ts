@@ -47,7 +47,7 @@ export async function listReleases(github: GitHub): Promise<DownloadRelease[]> {
   return downloadReleases
 }
 
-function extractVersionFromBody(body: String): Version | undefined {
+function extractVersionFromBody(body: string): Version | undefined {
   for (const bodyLine of body.split('\n')) {
     const version = Version.fromTag(bodyLine)
     if (version) {

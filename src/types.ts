@@ -37,7 +37,7 @@ class Version {
     return `${this.major}.${this.minor}.${this.bugfix}`
   }
 
-  static fromTag(tag: String): Version | undefined {
+  static fromTag(tag: string): Version | undefined {
     const match = tag.match(Version.pattern)
     if (match) {
       return new Version(parseInt(match[1]), parseInt(match[2]), parseInt(match[3]))
@@ -57,7 +57,7 @@ class DownloadRelease {
     this.major = major
   }
 
-  static fromTag(id: number, tag: String): DownloadRelease | undefined {
+  static fromTag(id: number, tag: string): DownloadRelease | undefined {
     const pattern = /^download-latest(?:-v(\d+))?$/
     const match = tag.match(pattern)
     if (match) {
