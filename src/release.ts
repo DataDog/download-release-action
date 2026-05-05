@@ -1,8 +1,9 @@
 import * as fs from 'fs'
 import {Readable} from 'stream'
 import {pipeline} from 'stream/promises'
+import type {ReadableStream as NodeReadableStream} from 'stream/web'
 import {context} from '@actions/github'
-import {DownloadRelease, GitHub, Version} from './types'
+import {DownloadRelease, GitHub, Version} from './types.js'
 
 const assetFile = 'dd-java-agent.jar'
 
@@ -73,7 +74,7 @@ export async function downloadAgentAsset(version: Version): Promise<string> {
   if (!response.ok || !response.body) {
     throw new Error(`Failed to download ${url}: ${response.status} ${response.statusText}`)
   }
-  await pipeline(Readable.fromWeb(response.body), fs.createWriteStream(fileName))
+  await pipeline(Readable.fromWeb(response.body as NodeReadableStream<Uint8Array>), fs.createWriteStream(fileName))
   return fileName
 }
 

@@ -78,4 +78,5 @@ class DownloadRelease {
 
 type GitHub = ReturnType<typeof getOctokit>
 
-export {Version, DownloadRelease, GitHub}
+export {Version, DownloadRelease}
+export type {GitHub}

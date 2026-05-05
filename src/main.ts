@@ -1,6 +1,6 @@
 import * as core from '@actions/core'
 import {getOctokit} from '@actions/github'
-import {listReleases, updateRelease} from './release'
+import {listReleases, updateRelease} from './release.js'
 
 interface OctokitOptions {
   log?: {

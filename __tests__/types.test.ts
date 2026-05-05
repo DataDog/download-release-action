@@ -1,4 +1,4 @@
-import {DownloadRelease, Version} from '../src/types'
+import {DownloadRelease, Version} from '../src/types.js'
 import {expect, test} from '@jest/globals'
 
 test('Version tag parsing', async () => {
