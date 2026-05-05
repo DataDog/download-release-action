@@ -1,6 +1,7 @@
 import * as fs from 'fs'
+import {Readable} from 'stream'
+import {pipeline} from 'stream/promises'
 import {context} from '@actions/github'
-import download from 'download'
 import {DownloadRelease, GitHub, Version} from './types'
 
 const assetFile = 'dd-java-agent.jar'
@@ -67,10 +68,12 @@ export async function updateRelease(github: GitHub, release: DownloadRelease): P
 
 export async function downloadAgentAsset(version: Version): Promise<string> {
   const fileName = `dd-java-agent-${version.toString()}.jar`
-  const url = `https://github.com/${context.repo.owner}/${
-    context.repo.repo
-  }/releases/download/${version.tagName()}/${fileName}`
-  await download(url, '.')
+  const url = `https://github.com/${context.repo.owner}/${context.repo.repo}/releases/download/${version.tagName()}/${fileName}`
+  const response = await fetch(url)
+  if (!response.ok || !response.body) {
+    throw new Error(`Failed to download ${url}: ${response.status} ${response.statusText}`)
+  }
+  await pipeline(Readable.fromWeb(response.body), fs.createWriteStream(fileName))
   return fileName
 }
 
