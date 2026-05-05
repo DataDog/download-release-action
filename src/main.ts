@@ -15,9 +15,9 @@ async function run(): Promise<void> {
   try {
     // Create octokit client
     const token = core.getInput('github-token', {required: true})
-    const debug = core.getInput('debug')
+  const debug = core.getBooleanInput('debug')
     const opts = {} as OctokitOptions
-    if (debug === 'true') {
+  if (debug) {
       opts.log = console
     }
     const github = getOctokit(token, opts)

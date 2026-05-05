@@ -1,6 +1,4 @@
-import {Octokit} from '@octokit/core'
-import {Api} from '@octokit/plugin-rest-endpoint-methods/dist-types/types'
-import {PaginateInterface} from '@octokit/plugin-paginate-rest'
+import {getOctokit} from '@actions/github'
 
 class Version {
   readonly major: number
@@ -78,7 +76,6 @@ class DownloadRelease {
   }
 }
 
-// type GitHubClient = typeof GitHub
-type GitHub = Octokit & Api & {paginate: PaginateInterface}
+type GitHub = ReturnType<typeof getOctokit>
 
 export {Version, DownloadRelease, GitHub}
