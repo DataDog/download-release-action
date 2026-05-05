@@ -30,17 +30,17 @@ They can be configured with a `with` map:
 - name: Update releases
   uses: DataDog/download-release-action@latest
   with:
-    - github-token: ${{ env.MY_TOKEN }}
-    - debug: true
+    github-token: ${{ env.MY_TOKEN }}
+    debug: true
 ```
 
 ## Development
 
-> First, you'll need to have a reasonably modern version of `node` handy. This won't work with versions older than 16, for instance.
+> Requires Node 24+ (the action's declared runtime).
 
-Install the dependencies  
+Install the dependencies
 ```bash
-$ npm install
+$ npm ci
 ```
 
 Build the typescript and package it for distribution
@@ -48,7 +48,7 @@ Build the typescript and package it for distribution
 $ npm run build && npm run package
 ```
 
-Run the tests :heavy_check_mark:  
-```
+Run the tests
+```bash
 $ npm test
 ```
