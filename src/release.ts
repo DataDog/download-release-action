@@ -72,6 +72,7 @@ export async function downloadAgentAsset(version: Version): Promise<string> {
   const url = `https://github.com/${context.repo.owner}/${context.repo.repo}/releases/download/${version.tagName()}/${fileName}`
   const response = await fetch(url)
   if (!response.ok || !response.body) {
+    await response.body?.cancel()
     throw new Error(`Failed to download ${url}: ${response.status} ${response.statusText}`)
   }
   await pipeline(Readable.fromWeb(response.body as NodeReadableStream<Uint8Array>), fs.createWriteStream(fileName))
