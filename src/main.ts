@@ -2,24 +2,11 @@ import * as core from '@actions/core'
 import {getOctokit} from '@actions/github'
 import {listReleases, updateRelease} from './release.js'
 
-interface OctokitOptions {
-  log?: {
-    debug: (message: string) => unknown
-    info: (message: string) => unknown
-    warn: (message: string) => unknown
-    error: (message: string) => unknown
-  }
-}
-
 async function run(): Promise<void> {
   // Create octokit client
   const token = core.getInput('github-token', {required: true})
   const debug = core.getBooleanInput('debug')
-  const opts = {} as OctokitOptions
-  if (debug) {
-    opts.log = console
-  }
-  const github = getOctokit(token, opts)
+  const github = getOctokit(token, debug ? {log: console} : undefined)
   // Try to update all releases
   const releases = await listReleases(github)
   if (releases.length === 0) {

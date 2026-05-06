@@ -22,7 +22,7 @@ export async function listReleases(github: GitHub): Promise<DownloadRelease[]> {
     .filter(release => !release.draft && !release.prerelease)
     .map(release => release.tag_name)
 
-  const versions = [] as Version[]
+  const versions: Version[] = []
   for (const publishedVersion of publishedVersions) {
     const version = Version.fromTag(publishedVersion)
     if (version) {
@@ -33,7 +33,7 @@ export async function listReleases(github: GitHub): Promise<DownloadRelease[]> {
     }
   }
 
-  const downloadReleases = [] as DownloadRelease[]
+  const downloadReleases: DownloadRelease[] = []
   for (const version of response) {
     const downloadRelease = DownloadRelease.fromTag(version.id, version.tag_name)
     if (downloadRelease) {
