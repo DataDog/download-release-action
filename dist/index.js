@@ -36386,6 +36386,7 @@ async function downloadAgentAsset(version) {
     const url = `https://github.com/${github_context.repo.owner}/${github_context.repo.repo}/releases/download/${version.tagName()}/${fileName}`;
     const response = await fetch(url);
     if (!response.ok || !response.body) {
+        await response.body?.cancel();
         throw new Error(`Failed to download ${url}: ${response.status} ${response.statusText}`);
     }
     await (0,promises_namespaceObject.pipeline)(external_stream_namespaceObject.Readable.fromWeb(response.body), external_fs_namespaceObject.createWriteStream(fileName));
@@ -36470,11 +36471,7 @@ async function run() {
     // Create octokit client
     const token = getInput('github-token', { required: true });
     const debug = getBooleanInput('debug');
-    const opts = {};
-    if (debug) {
-        opts.log = console;
-    }
-    const github = getOctokit(token, opts);
+    const github = getOctokit(token, debug ? { log: console } : undefined);
     // Try to update all releases
     const releases = await listReleases(github);
     if (releases.length === 0) {
