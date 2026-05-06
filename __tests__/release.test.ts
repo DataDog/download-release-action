@@ -1,5 +1,5 @@
-import {listReleases} from '../src/release'
-import {DownloadRelease, Version} from '../src/types'
+import {listReleases} from '../src/release.js'
+import {DownloadRelease, Version} from '../src/types.js'
 import {expect, jest, test} from '@jest/globals'
 
 process.env['GITHUB_REPOSITORY'] = 'owner/repo'

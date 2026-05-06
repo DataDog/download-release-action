@@ -1,6 +1,6 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'Download Release Action'
+description: 'Update download releases to always provide the latest version for download'
+author: 'Datadog'
 inputs:
   github-token:
     description: The GitHub token used to create an authenticated client
@@ -14,5 +14,5 @@ outputs:
   updated-releases:
     description: An array with the update release tags
 runs:
-  using: 'node16'
+  using: 'node24'
   main: 'dist/index.js'

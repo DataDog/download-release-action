@@ -1,6 +1,6 @@
 import {expect, jest, test} from '@jest/globals'
-import {Version} from '../src/types'
-import {downloadAgentAsset} from '../src/release'
+import {Version} from '../src/types.js'
+import {downloadAgentAsset} from '../src/release.js'
 import {fail} from 'assert'
 import * as fs from 'fs'
 

@@ -1,7 +1,9 @@
 import * as fs from 'fs'
+import {Readable} from 'stream'
+import {pipeline} from 'stream/promises'
+import type {ReadableStream as NodeReadableStream} from 'stream/web'
 import {context} from '@actions/github'
-import download from 'download'
-import {DownloadRelease, GitHub, Version} from './types'
+import {DownloadRelease, GitHub, Version} from './types.js'
 
 const assetFile = 'dd-java-agent.jar'
 
@@ -20,7 +22,7 @@ export async function listReleases(github: GitHub): Promise<DownloadRelease[]> {
     .filter(release => !release.draft && !release.prerelease)
     .map(release => release.tag_name)
 
-  const versions = [] as Version[]
+  const versions: Version[] = []
   for (const publishedVersion of publishedVersions) {
     const version = Version.fromTag(publishedVersion)
     if (version) {
@@ -31,7 +33,7 @@ export async function listReleases(github: GitHub): Promise<DownloadRelease[]> {
     }
   }
 
-  const downloadReleases = [] as DownloadRelease[]
+  const downloadReleases: DownloadRelease[] = []
   for (const version of response) {
     const downloadRelease = DownloadRelease.fromTag(version.id, version.tag_name)
     if (downloadRelease) {
@@ -67,10 +69,13 @@ export async function updateRelease(github: GitHub, release: DownloadRelease): P
 
 export async function downloadAgentAsset(version: Version): Promise<string> {
   const fileName = `dd-java-agent-${version.toString()}.jar`
-  const url = `https://github.com/${context.repo.owner}/${
-    context.repo.repo
-  }/releases/download/${version.tagName()}/${fileName}`
-  await download(url, '.')
+  const url = `https://github.com/${context.repo.owner}/${context.repo.repo}/releases/download/${version.tagName()}/${fileName}`
+  const response = await fetch(url)
+  if (!response.ok || !response.body) {
+    await response.body?.cancel()
+    throw new Error(`Failed to download ${url}: ${response.status} ${response.statusText}`)
+  }
+  await pipeline(Readable.fromWeb(response.body as NodeReadableStream<Uint8Array>), fs.createWriteStream(fileName))
   return fileName
 }
 
