@@ -47,5 +47,43 @@
   "bugs": {
     "url": "https://github.com/DataDog/download-release-action/issues"
   },
-  "homepage": "https://github.com/DataDog/download-release-action#readme"
+  "homepage": "https://github.com/DataDog/download-release-action#readme",
+  "overrides": {
+    "eslint": {
+      "ajv": "^6.15.0",
+      "brace-expansion": "^1.1.15",
+      "minimatch": "^3.1.5"
+    },
+    "@eslint/eslintrc": {
+      "brace-expansion": "^1.1.15",
+      "minimatch": "^3.1.5"
+    },
+    "@humanwhocodes/config-array": {
+      "brace-expansion": "^1.1.15",
+      "minimatch": "^3.1.5"
+    },
+    "eslint-plugin-import": {
+      "brace-expansion": "^1.1.15",
+      "minimatch": "^3.1.5"
+    },
+    "eslint-plugin-jsx-a11y": {
+      "brace-expansion": "^1.1.15",
+      "minimatch": "^3.1.5"
+    },
+    "glob": {
+      "brace-expansion": "^1.1.15",
+      "minimatch": "^3.1.5"
+    },
+    "jake": {
+      "brace-expansion": "^1.1.15",
+      "minimatch": "^3.1.5"
+    },
+    "test-exclude": {
+      "brace-expansion": "^1.1.15",
+      "minimatch": "^3.1.5"
+    },
+    "@istanbuljs/load-nyc-config": {
+      "js-yaml": "^3.14.2"
+    }
+  }
 }
