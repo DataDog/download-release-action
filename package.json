@@ -47,5 +47,53 @@
   "bugs": {
     "url": "https://github.com/DataDog/download-release-action/issues"
   },
-  "homepage": "https://github.com/DataDog/download-release-action#readme"
+  "homepage": "https://github.com/DataDog/download-release-action#readme",
+  "overrides": {
+    "jest": {
+      "picomatch": "^2.3.2"
+    },
+    "ts-jest": {
+      "picomatch": "^2.3.2"
+    },
+    "eslint": {
+      "ajv": "^6.15.0",
+      "minimatch": "^3.1.5"
+    },
+    "@typescript-eslint/eslint-plugin": {
+      "brace-expansion": "^2.0.3",
+      "picomatch": "^2.3.2"
+    },
+    "@typescript-eslint/parser": {
+      "brace-expansion": "^2.0.3",
+      "picomatch": "^2.3.2"
+    },
+    "eslint-plugin-jest": {
+      "brace-expansion": "^2.0.3",
+      "picomatch": "^2.3.2"
+    },
+    "@istanbuljs/load-nyc-config": {
+      "js-yaml": "^3.14.2"
+    },
+    "@eslint/eslintrc": {
+      "minimatch": "^3.1.5"
+    },
+    "@humanwhocodes/config-array": {
+      "minimatch": "^3.1.5"
+    },
+    "eslint-plugin-import": {
+      "minimatch": "^3.1.5"
+    },
+    "eslint-plugin-jsx-a11y": {
+      "minimatch": "^3.1.5"
+    },
+    "glob": {
+      "minimatch": "^3.1.5"
+    },
+    "jake": {
+      "minimatch": "^3.1.5"
+    },
+    "test-exclude": {
+      "minimatch": "^3.1.5"
+    }
+  }
 }
